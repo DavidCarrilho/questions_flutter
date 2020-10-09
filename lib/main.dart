@@ -22,13 +22,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var _perguntaSelecionada = 0;
 
-  void _responder() {
-    setState(() {
-      _perguntaSelecionada++;
-    });
-  }
-
-  final List<Map<String, Object>> perguntas = [
+  final _perguntas = const [
     {
       'texto': 'Qual sua cor favorita?',
       'respostas': [
@@ -40,7 +34,7 @@ class _HomeState extends State<Home> {
     },
     {
       'texto': 'Qual seu animal favorito?',
-      'resposta': [
+      'respostas': [
         'Coelho',
         'Cachorro',
         'Macaco',
@@ -49,7 +43,7 @@ class _HomeState extends State<Home> {
     },
     {
       'texto': 'Qual seu Professor favorito?',
-      'resposta': [
+      'respostas': [
         'Luan',
         'Jane',
         'josé',
@@ -58,21 +52,34 @@ class _HomeState extends State<Home> {
     },
   ];
 
+  void _responder() {
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+      });
+    }
+  }
+
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<String> anwsers = temPerguntaSelecionada
+        ? _perguntas[_perguntaSelecionada]['respostas']
+        : null;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Perguntas"),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Question(perguntas[_perguntaSelecionada]['texto']),
-          Anwser('Resposta1', _responder),
-          Anwser('Resposta1', _responder),
-          Anwser('Resposta1', _responder),
-        ],
-      ),
+      body: temPerguntaSelecionada
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Question(_perguntas[_perguntaSelecionada]['texto']),
+                ...anwsers.map((t) => Anwser(t, _responder)).toList(),
+              ],
+            )
+          : null,
     );
   }
 }
