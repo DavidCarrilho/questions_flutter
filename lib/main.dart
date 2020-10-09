@@ -1,3 +1,4 @@
+import 'package:app_questions/anwser.dart';
 import 'package:app_questions/question.dart';
 import 'package:flutter/material.dart';
 
@@ -25,12 +26,36 @@ class _HomeState extends State<Home> {
     setState(() {
       _perguntaSelecionada++;
     });
-    print(_perguntaSelecionada);
   }
 
-  final perguntas = [
-    'Qual é sua cor favorita?',
-    'Qual é seu animal favorito?',
+  final List<Map<String, Object>> perguntas = [
+    {
+      'texto': 'Qual sua cor favorita?',
+      'respostas': [
+        'Azul',
+        'Preto',
+        'Vermelho',
+        'Branco',
+      ]
+    },
+    {
+      'texto': 'Qual seu animal favorito?',
+      'resposta': [
+        'Coelho',
+        'Cachorro',
+        'Macaco',
+        'Leão',
+      ]
+    },
+    {
+      'texto': 'Qual seu Professor favorito?',
+      'resposta': [
+        'Luan',
+        'Jane',
+        'josé',
+        'Mike',
+      ]
+    },
   ];
 
   @override
@@ -42,19 +67,10 @@ class _HomeState extends State<Home> {
       ),
       body: Column(
         children: [
-          Question(perguntas[_perguntaSelecionada]),
-          RaisedButton(
-            onPressed: _responder,
-            child: Text("Resposta 1"),
-          ),
-          RaisedButton(
-            onPressed: _responder,
-            child: Text("Resposta 2"),
-          ),
-          RaisedButton(
-            onPressed: _responder,
-            child: Text("Resposta 3"),
-          ),
+          Question(perguntas[_perguntaSelecionada]['texto']),
+          Anwser('Resposta1', _responder),
+          Anwser('Resposta1', _responder),
+          Anwser('Resposta1', _responder),
         ],
       ),
     );
