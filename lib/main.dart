@@ -1,5 +1,6 @@
 import 'package:app_questions/anwser.dart';
 import 'package:app_questions/question.dart';
+import 'package:app_questions/result.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(QuestiosApp());
@@ -79,7 +80,7 @@ class _HomeState extends State<Home> {
                 ...anwsers.map((t) => Anwser(t, _responder)).toList(),
               ],
             )
-          : null,
+          : Result(),
     );
   }
 }
